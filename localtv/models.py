@@ -34,7 +34,7 @@ try:
 except ImportError:
     import Image as PILImage
 import time
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 
 from daguerre.models import Image
 from django.db import models
@@ -1810,9 +1810,9 @@ class Video(Thumbnailable, VideoBase):
 
         if instance.description:
             soup = BeautifulSoup(video.description)
-            for tag in soup.findAll(
+            for tag in soup.find_all(
                 'div', {'class': "miro-community-description"}):
-                instance.description = tag.renderContents()
+                instance.description = unicode(tag)
                 break
             instance.description = sanitize(instance.description,
                                             extra_filters=['img'])
